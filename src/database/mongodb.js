@@ -3,23 +3,24 @@ import { config } from "../config/config.js";
 
 
 let database;
+let client;
 
 
 export async function connectDatabase() {
 
     try {
 
-        const client = new MongoClient(config.mongodbUri);
+        client = new MongoClient(config.mongodbUri);
 
         await client.connect();
 
         database = client.db(config.databaseName);
 
-        console.log("MongoDB connected successfully");
+        console.log("✅ MongoDB connected successfully");
 
     } catch (error) {
 
-        console.error("MongoDB connection failed:", error.message);
+        console.error("❌ MongoDB connection failed:", error.message);
 
         process.exit(1);
     }
@@ -29,8 +30,27 @@ export async function connectDatabase() {
 export function getDatabase() {
 
     if (!database) {
-        throw new Error("Database not initialized");
+        throw new Error("Database not connected");
     }
 
     return database;
+}
+
+
+export async function checkDatabaseConnection(){
+
+    try {
+
+        await client.db("admin").command({
+            ping: 1
+        });
+
+        return true;
+
+    } catch(error){
+
+        return false;
+
+    }
+
 }
