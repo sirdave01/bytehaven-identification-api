@@ -8,9 +8,9 @@ import {
     notFoundResponse
 } from "../utils/response.js";
 
-export const getSystemSettings = async (req, res) => {
+export const getSettings = async (req, res) => {
 
-    const settings = await Setting.getAllSystemSettings();
+    const settings = await Setting.getAllSettings();
 
     return successResponse(
         res,
@@ -27,7 +27,7 @@ export const getSystemSettings = async (req, res) => {
         
 export const getSetting = async(req,res)=>{
         
-    const setting = await Setting.getApplicationById(
+    const setting = await Setting.getSettingsById(
         
         req.params.id
         

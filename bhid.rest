@@ -1,0 +1,205 @@
+############################################################
+### ByteHaven Identification System API
+### Base URL
+############################################################
+
+@baseUrl = http://localhost:3000/api/v1
+
+############################################################
+### Root Route
+############################################################
+
+GET http://localhost:3000/
+
+###
+
+############################################################
+### Health Check
+############################################################
+
+GET http://localhost:3000/health
+
+###
+
+############################################################
+### USERS
+############################################################
+
+### Get All Users
+
+GET {{baseUrl}}/users
+
+###
+
+### Get User by ID
+
+GET {{baseUrl}}/users/PUT_USER_ID_HERE
+
+###
+
+### Create User
+
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "first_name": "David",
+    "last_name": "Caleb",
+    "username": "davidcaleb",
+    "email": "david@example.com",
+    "password": "Password123!"
+}
+
+###
+
+### Update User
+
+PUT {{baseUrl}}/users/PUT_USER_ID_HERE
+Content-Type: application/json
+
+{
+    "first_name": "David Updated"
+}
+
+###
+
+### Delete User
+
+DELETE {{baseUrl}}/users/PUT_USER_ID_HERE
+
+###
+
+############################################################
+### ROLES
+############################################################
+
+### Get All Roles
+
+GET {{baseUrl}}/roles
+
+###
+
+### Get Role
+
+GET {{baseUrl}}/roles/PUT_ROLE_ID_HERE
+
+###
+
+### Create Role
+
+POST {{baseUrl}}/roles
+Content-Type: application/json
+
+{
+    "name": "Developer",
+    "description": "API Developer"
+}
+
+###
+
+### Update Role
+
+PUT {{baseUrl}}/roles/PUT_ROLE_ID_HERE
+Content-Type: application/json
+
+{
+    "description": "Updated Description"
+}
+
+###
+
+### Delete Role
+
+DELETE {{baseUrl}}/roles/PUT_ROLE_ID_HERE
+
+###
+
+############################################################
+### APPLICATIONS
+############################################################
+
+### Get All Applications
+
+GET {{baseUrl}}/applications
+
+###
+
+### Get Application
+
+GET {{baseUrl}}/applications/PUT_APPLICATION_ID_HERE
+
+###
+
+### Create Application
+
+POST {{baseUrl}}/applications
+Content-Type: application/json
+
+{
+    "name": "HavenPay",
+    "description": "Payment Platform",
+    "status": "active"
+}
+
+###
+
+### Update Application
+
+PUT {{baseUrl}}/applications/PUT_APPLICATION_ID_HERE
+Content-Type: application/json
+
+{
+    "status": "inactive"
+}
+
+###
+
+### Delete Application
+
+DELETE {{baseUrl}}/applications/PUT_APPLICATION_ID_HERE
+
+###
+
+############################################################
+### SYSTEM SETTINGS
+############################################################
+
+### Get All Settings
+
+GET {{baseUrl}}/system-settings
+
+###
+
+### Get Setting
+
+GET {{baseUrl}}/system-settings/PUT_SETTING_ID_HERE
+
+###
+
+### Create Setting
+
+POST {{baseUrl}}/system-settings
+Content-Type: application/json
+
+{
+    "key": "maintenance_mode",
+    "value": false,
+    "description": "Enable or disable maintenance mode"
+}
+
+###
+
+### Update Setting
+
+PUT {{baseUrl}}/system-settings/PUT_SETTING_ID_HERE
+Content-Type: application/json
+
+{
+    "value": true
+}
+
+###
+
+### Delete Setting
+
+DELETE {{baseUrl}}/system-settings/PUT_SETTING_ID_HERE

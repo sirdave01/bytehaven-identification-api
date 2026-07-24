@@ -48,13 +48,11 @@ router.get(
  * #swagger.parameters['body'] = {
  *    in: 'body',
  *    required: true,
- *    schema: {
- *      first_name: 'John',
- *      last_name: 'Doe',
- *      username: 'johndoe',
- *      email: 'john@example.com',
- *      password: 'password123'
- *    }
+ *    schema:{
+        name:"HavenPay",
+        description:"ByteHaven payment application",
+        status:"active"
+        }
  * }
  */
 

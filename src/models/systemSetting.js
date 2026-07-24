@@ -1,4 +1,4 @@
-// this is the system_settings model that will import all from the base model file and extend it
+// this is the systemSettings model that will import all from the base model file and extend it
 
 import * as BaseModel from "./base.js";
 

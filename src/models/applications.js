@@ -7,7 +7,7 @@ const COLLECTION = "applications";
 export const getAllApplications = () =>
     BaseModel.findAll(COLLECTION);
 
-export const getApplicationsById = (id) =>
+export const getApplicationById = (id) =>
     BaseModel.findById(COLLECTION, id);
 
 export const createApplication = (application) =>

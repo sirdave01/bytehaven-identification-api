@@ -59,9 +59,17 @@ app.get("/", async (req, res, next) => {
                 project: "BHID Prototype v0.1",
                 version: "1.0.0",
                 status: "online",
+
+                endpoints: {
+                    api: "/api/v1",
+                    documentation: "/api-docs",
+                    health: "/health"
+                },
+
                 database: databaseStatus
                     ? "connected"
                     : "disconnected",
+
                 timestamp: new Date()
             },
             200
@@ -145,10 +153,11 @@ async function startServer() {
             console.log("========================================");
             console.log("🚀 ByteHaven Identification API Started");
             console.log("========================================");
-            console.log(`🌍 Server: http://localhost:${config.port}`);
-            console.log(`❤️ Health: http://localhost:${config.port}/health`);
-            console.log("📚 API: http://localhost:${config.port}/api/v1");
-            console.log("✅ MongoDB: Connected");
+            console.log(`🌍 Server         : http://localhost:${config.port}`);
+            console.log(`❤️ Health         : http://localhost:${config.port}/health`);
+            console.log(`📚 Swagger Docs   : http://localhost:${config.port}/api-docs`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1`);
+            console.log("✅ MongoDB        : Connected");
             console.log("========================================");
 
         });

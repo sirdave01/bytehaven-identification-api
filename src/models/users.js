@@ -7,7 +7,7 @@ const COLLECTION = "users";
 export const getAllUsers = () =>
     BaseModel.findAll(COLLECTION);
 
-export const getUsersById = (id) =>
+export const getUserById = (id) =>
     BaseModel.findById(COLLECTION, id);
 
 export const createUser = (user) =>
