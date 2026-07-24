@@ -4,91 +4,146 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import { config } from "./src/config/config.js";
-import { connectDatabase, checkDatabaseConnection } from "./src/database/mongodb.js";
+import {
+    connectDatabase,
+    checkDatabaseConnection
+} from "./src/database/mongodb.js";
 
+import { successResponse } from "./src/utils/response.js";
+import { errorHandler } from "./src/middleware/errorHandler.js";
 
 const app = express();
 
 
-// Middleware
+// ===============================
+// Global Middleware
+// ===============================
+
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 
 
+// ===============================
 // Root Route
-app.get("/", async (req, res)=>{
+// ===============================
 
-    const databaseStatus = await checkDatabaseConnection();
+app.get("/", async (req, res, next) => {
 
-    res.status(200).json({
+    try {
 
-        message: "Welcome to ByteHaven Identification System API",
+        const databaseStatus = await checkDatabaseConnection();
 
-        project: "BHID Prototype v0.1",
+        return successResponse(
+            res,
+            200,
+            "Welcome to ByteHaven Identification System API",
+            {
+                project: "BHID Prototype v0.1",
+                version: "1.0.0",
+                status: "online",
+                database: databaseStatus
+                    ? "connected"
+                    : "disconnected",
+                timestamp: new Date()
+            }
+        );
 
-        status: "online",
+    } catch (error) {
 
-        database: databaseStatus 
-            ? "connected"
-            : "disconnected",
+        next(error);
 
-        timestamp: new Date()
+    }
 
+});
+
+
+// ===============================
+// Health Check
+// ===============================
+
+app.get("/health", async (req, res, next) => {
+
+    try {
+
+        const databaseStatus = await checkDatabaseConnection();
+
+        return successResponse(
+            res,
+            200,
+            "API health check successful",
+            {
+                api: "running",
+                database: databaseStatus
+                    ? "healthy"
+                    : "unhealthy",
+                uptime: process.uptime(),
+                timestamp: new Date()
+            }
+        );
+
+    } catch (error) {
+
+        next(error);
+
+    }
+
+});
+
+
+// ===============================
+// 404 Handler
+// ===============================
+
+app.use((req, res) => {
+
+    return res.status(404).json({
+        success: false,
+        message: "Route not found"
     });
 
 });
 
 
-// Health Check Route
-app.get("/health", async(req,res)=>{
+// ===============================
+// Global Error Handler
+// ===============================
 
-    const databaseStatus = await checkDatabaseConnection();
-
-
-    res.status(200).json({
-
-        api: "running",
-
-        database:
-            databaseStatus
-            ? "healthy"
-            : "unhealthy",
-
-        uptime: process.uptime(),
-
-        timestamp: new Date()
-
-    });
-
-});
+app.use(errorHandler);
 
 
+// ===============================
 // Start Server
+// ===============================
 
-async function startServer(){
+async function startServer() {
 
-    await connectDatabase();
+    try {
 
+        await connectDatabase();
 
-    app.listen(config.port, ()=>{
+        app.listen(config.port, () => {
 
-        console.log(
-            `🚀 BHID API running on port ${config.port}`
-        );
+            console.log("========================================");
+            console.log("🚀 ByteHaven Identification API Started");
+            console.log("========================================");
+            console.log(`🌍 Server: http://localhost:${config.port}`);
+            console.log(`❤️ Health: http://localhost:${config.port}/health`);
+            console.log("✅ MongoDB: Connected");
+            console.log("========================================");
 
-        console.log(
-            `🌍 Preview: http://localhost:${config.port}`
-        );
+        });
 
-        console.log(
-            `❤️ Health Check: http://localhost:${config.port}/health`
-        );
+    } catch (error) {
 
-    });
+        console.error("❌ Failed to start server");
+        console.error(error);
+
+        process.exit(1);
+
+    }
 
 }
-
 
 startServer();

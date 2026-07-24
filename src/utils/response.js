@@ -1,43 +1,68 @@
-/**
- * Send a successful API response.
- *
- * @param {Object} res Express response object
- * @param {number} statusCode HTTP status code
- * @param {string} message Response message
- * @param {*} data Response payload
- */
-
-export function successResponse(
+export const successResponse = (
     res,
-    statusCode = 200,
-    message = "Success",
-    data = null
-) {
-    return res.status(statusCode).json({
+    message,
+    data = null,
+    status = 200
+) => {
+
+    return res.status(status).json({
+
         success: true,
+
         message,
+
         data
+
     });
-}
 
-/**
- * Send an error API response.
- *
- * @param {Object} res Express response object
- * @param {number} statusCode HTTP status code
- * @param {string} message Error message
- * @param {*} errors Validation errors (optional)
- */
+};
 
-export function errorResponse(
+export const createdResponse = (
     res,
-    statusCode = 500,
-    message = "Internal Server Error",
+    message,
+    data = null
+) => {
+
+    return successResponse(
+        res,
+        message,
+        data,
+        201
+    );
+
+};
+
+export const notFoundResponse = (
+    res,
+    message = "Resource not found"
+) => {
+
+    return res.status(404).json({
+
+        success: false,
+
+        message
+
+    });
+
+};
+
+export const badRequestResponse = (
+    res,
+    message = "Bad Request",
     errors = null
-) {
-    return res.status(statusCode).json({
+) => {
+
+    return res.status(400).json({
         success: false,
         message,
         errors
     });
-}
+
+};
+
+export const noContentResponse = (res) => {
+
+    return res.status(204).send();
+
+};
