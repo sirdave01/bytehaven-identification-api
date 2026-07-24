@@ -11,6 +11,7 @@ import {
 
 import { successResponse } from "./src/utils/response.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
+import routes from "./src/routes/index.js";
 
 const app = express();
 
@@ -26,6 +27,13 @@ app.use(morgan("dev"));
 
 
 // ===============================
+// API Routes
+// ===============================
+
+app.use("/api/v1", routes);
+
+
+// ===============================
 // Root Route
 // ===============================
 
@@ -37,7 +45,6 @@ app.get("/", async (req, res, next) => {
 
         return successResponse(
             res,
-            200,
             "Welcome to ByteHaven Identification System API",
             {
                 project: "BHID Prototype v0.1",
@@ -47,7 +54,8 @@ app.get("/", async (req, res, next) => {
                     ? "connected"
                     : "disconnected",
                 timestamp: new Date()
-            }
+            },
+            200
         );
 
     } catch (error) {
@@ -71,7 +79,6 @@ app.get("/health", async (req, res, next) => {
 
         return successResponse(
             res,
-            200,
             "API health check successful",
             {
                 api: "running",
@@ -80,7 +87,8 @@ app.get("/health", async (req, res, next) => {
                     : "unhealthy",
                 uptime: process.uptime(),
                 timestamp: new Date()
-            }
+            },
+            200
         );
 
     } catch (error) {
@@ -130,6 +138,7 @@ async function startServer() {
             console.log("========================================");
             console.log(`🌍 Server: http://localhost:${config.port}`);
             console.log(`❤️ Health: http://localhost:${config.port}/health`);
+            console.log("📚 API: http://localhost:${config.port}/api/v1");
             console.log("✅ MongoDB: Connected");
             console.log("========================================");
 
