@@ -1,6 +1,9 @@
 import swaggerAutogen from "swagger-autogen";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const doc = {
+
     info: {
         title: "ByteHaven Identification System API",
         description:
@@ -8,13 +11,23 @@ const doc = {
         version: "1.0.0"
     },
 
-    host: "localhost:3000",
+    host: isProduction
+        ? "bytehaven-identification-api.onrender.com"
+        : "localhost:3000",
 
-    schemes: ["http"],
+    basePath: "/",
 
-    consumes: ["application/json"],
+    schemes: isProduction
+        ? ["https"]
+        : ["http"],
 
-    produces: ["application/json"],
+    consumes: [
+        "application/json"
+    ],
+
+    produces: [
+        "application/json"
+    ],
 
     tags: [
         {
@@ -39,12 +52,7 @@ const doc = {
 const outputFile = "./src/docs/swagger-output.json";
 
 const endpointsFiles = [
-    "./server.js",
-    "./src/routes/index.js",
-    "./src/routes/userRoutes.js",
-    "./src/routes/roleRoutes.js",
-    "./src/routes/applicationRoutes.js",
-    "./src/routes/systemSettingRoutes.js"
+    "./server.js"
 ];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);
