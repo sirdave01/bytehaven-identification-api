@@ -6,13 +6,9 @@ export const successResponse = (
 ) => {
 
     return res.status(status).json({
-
         success: true,
-
         message,
-
         data
-
     });
 
 };
@@ -32,21 +28,6 @@ export const createdResponse = (
 
 };
 
-export const notFoundResponse = (
-    res,
-    message = "Resource not found"
-) => {
-
-    return res.status(404).json({
-
-        success: false,
-
-        message
-
-    });
-
-};
-
 export const badRequestResponse = (
     res,
     message = "Bad Request",
@@ -54,6 +35,33 @@ export const badRequestResponse = (
 ) => {
 
     return res.status(400).json({
+        success: false,
+        message,
+        errors
+    });
+
+};
+
+export const notFoundResponse = (
+    res,
+    message = "Resource not found"
+) => {
+
+    return res.status(404).json({
+        success: false,
+        message
+    });
+
+};
+
+export const errorResponse = (
+    res,
+    status = 500,
+    message = "Internal Server Error",
+    errors = null
+) => {
+
+    return res.status(status).json({
         success: false,
         message,
         errors
