@@ -157,6 +157,10 @@ async function startServer() {
             console.log(`❤️ Health         : http://localhost:${config.port}/health`);
             console.log(`📚 Swagger Docs   : http://localhost:${config.port}/api-docs`);
             console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/users`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/roles`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/applications`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/system-settings`);
             console.log("✅ MongoDB        : Connected");
             console.log("========================================");
 
