@@ -33,7 +33,7 @@ GET {{baseUrl}}/users
 
 ### Get User by ID
 
-GET {{baseUrl}}/users/PUT_USER_ID_HERE
+GET {{baseUrl}}/users/6a63ac9aa9d54fa4766ae6e0
 
 ###
 
@@ -54,7 +54,7 @@ Content-Type: application/json
 
 ### Update User
 
-PUT {{baseUrl}}/users/PUT_USER_ID_HERE
+PUT {{baseUrl}}/users/6a63ac9aa9d54fa4766ae6e0
 Content-Type: application/json
 
 {
