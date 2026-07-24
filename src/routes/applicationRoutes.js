@@ -19,10 +19,21 @@ import { asyncHandler } from "../middleware/asyncHandler.js";
 
 const router = Router();
 
+/**
+ * #swagger.tags = ['Applications']
+ * #swagger.summary = 'Retrieve all applications'
+ * #swagger.description = 'Returns all registered applications'
+ */
+
 router.get(
     "/",
     asyncHandler(getApplications)
 );
+
+/**
+ * #swagger.tags = ['Applications']
+ * #swagger.summary = 'Retrieve an application'
+ */
 
 router.get(
     "/:id",
@@ -30,6 +41,22 @@ router.get(
     validate,
     asyncHandler(getApplication)
 );
+
+/**
+ * #swagger.tags = ['Applications']
+ * #swagger.summary = 'Create a new application'
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *      first_name: 'John',
+ *      last_name: 'Doe',
+ *      username: 'johndoe',
+ *      email: 'john@example.com',
+ *      password: 'password123'
+ *    }
+ * }
+ */
 
 router.post(
     "/",
