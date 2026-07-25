@@ -1,5 +1,10 @@
 import swaggerAutogen from "swagger-autogen";
 
+import { userSchema } from "./schemas/userSchema.js";
+import { roleSchema } from "./schemas/roleSchema.js";
+import { applicationSchema } from "./schemas/applicationSchema.js";
+import { systemSettingSchema } from "./schemas/systemSettingSchema.js";
+
 const isProduction = process.env.NODE_ENV === "production";
 
 const doc = {
@@ -46,7 +51,19 @@ const doc = {
             name: "System Settings",
             description: "System Configuration"
         }
-    ]
+    ],
+
+    definitions: {
+
+        ...userSchema,
+
+        ...roleSchema,
+
+        ...applicationSchema,
+
+        ...systemSettingSchema
+
+    }
 };
 
 const outputFile = "./src/docs/swagger-output.json";
