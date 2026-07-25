@@ -4,6 +4,12 @@ export const roleSchema = {
 
         type: "object",
 
+        required: [
+            "name",
+            "description",
+            "permissions"
+        ],
+
         properties: {
 
             _id: {

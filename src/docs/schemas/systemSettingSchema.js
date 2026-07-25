@@ -4,6 +4,12 @@ export const systemSettingSchema = {
 
         type: "object",
 
+        required: [
+            "key",
+            "value",
+            "description"
+        ],
+
         properties: {
 
             _id: {

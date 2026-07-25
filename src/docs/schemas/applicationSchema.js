@@ -4,6 +4,13 @@ export const applicationSchema = {
 
         type: "object",
 
+        required: [
+            "name",
+            "description",
+            "status",
+            "version"
+        ],
+
         properties: {
 
             _id: {

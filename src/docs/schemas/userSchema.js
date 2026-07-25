@@ -4,6 +4,14 @@ export const userSchema = {
 
         type: "object",
 
+        required: [
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "password"
+        ],
+
         properties: {
 
             _id: {
