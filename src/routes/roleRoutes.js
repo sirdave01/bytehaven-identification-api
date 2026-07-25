@@ -31,12 +31,38 @@ router.get(
     asyncHandler(getRole)
 );
 
+/**
+ * #swagger.tags = ['Roles']
+ * #swagger.summary = 'Create role'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/Role'
+ *    }
+ * }
+ */
+
 router.post(
     "/",
     createRoleValidator,
     validate,
     asyncHandler(createRole)
 );
+
+/**
+ * #swagger.tags = ['Roles']
+ * #swagger.summary = 'Update role'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/Role'
+ *    }
+ * }
+ */
 
 router.put(
     "/:id",

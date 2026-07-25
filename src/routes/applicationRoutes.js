@@ -44,15 +44,14 @@ router.get(
 
 /**
  * #swagger.tags = ['Applications']
- * #swagger.summary = 'Create a new application'
+ * #swagger.summary = 'Create application'
+ *
  * #swagger.parameters['body'] = {
  *    in: 'body',
  *    required: true,
- *    schema:{
-        name:"HavenPay",
-        description:"ByteHaven payment application",
-        status:"active"
-        }
+ *    schema: {
+ *       $ref: '#/definitions/Application'
+ *    }
  * }
  */
 
@@ -62,6 +61,21 @@ router.post(
     validate,
     asyncHandler(createApplication)
 );
+
+
+/**
+ * #swagger.tags = ['Applications']
+ * #swagger.summary = 'Update application'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/Application'
+ *    }
+ * }
+ */
+
 
 router.put(
     "/:id",

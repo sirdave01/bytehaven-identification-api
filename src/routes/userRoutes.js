@@ -45,15 +45,13 @@ router.get(
 /**
  * #swagger.tags = ['Users']
  * #swagger.summary = 'Create a new user'
+ * #swagger.description = 'Creates a new BHID user.'
+ *
  * #swagger.parameters['body'] = {
  *    in: 'body',
  *    required: true,
  *    schema: {
- *      first_name: 'John',
- *      last_name: 'Doe',
- *      username: 'johndoe',
- *      email: 'john@example.com',
- *      password: 'password123'
+ *       $ref: '#/definitions/User'
  *    }
  * }
  */
@@ -64,6 +62,20 @@ router.post(
     validate,
     asyncHandler(createUser)
 );
+
+/**
+ * #swagger.tags = ['Users']
+ * #swagger.summary = 'Update a user'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/User'
+ *    }
+ * }
+ */
+
 
 router.put(
     "/:id",

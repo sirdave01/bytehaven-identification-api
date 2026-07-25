@@ -31,12 +31,38 @@ router.get(
     asyncHandler(getSetting)
 );
 
+/**
+ * #swagger.tags = ['System Settings']
+ * #swagger.summary = 'Create system setting'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/SystemSetting'
+ *    }
+ * }
+ */
+
 router.post(
     "/",
     createSystemSettingValidator,
     validate,
     asyncHandler(createSetting)
 );
+
+/**
+ * #swagger.tags = ['System Settings']
+ * #swagger.summary = 'Update system setting'
+ *
+ * #swagger.parameters['body'] = {
+ *    in: 'body',
+ *    required: true,
+ *    schema: {
+ *       $ref: '#/definitions/SystemSetting'
+ *    }
+ * }
+ */
 
 router.put(
     "/:id",
