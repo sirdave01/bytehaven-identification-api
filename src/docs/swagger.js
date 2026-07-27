@@ -24,7 +24,7 @@ const doc = {
         : "localhost:3000",
 
 
-    basePath: "/api/v1",
+    basePath: "/",
 
 
     schemes: isProduction
