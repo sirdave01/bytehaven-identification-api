@@ -31,41 +31,47 @@ router.get(
     asyncHandler(getSetting)
 );
 
-/**
- * #swagger.tags = ['System Settings']
- * #swagger.summary = 'Create system setting'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/SystemSetting'
- *    }
- * }
- */
-
 router.post(
     "/",
+
+    /*
+    #swagger.tags = ['System Settings']
+    #swagger.summary = 'Create system setting'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            key: "maintenance_mode",
+            value: "false",
+            description: "Controls system maintenance state"
+        }
+    }
+    */
+
     createSystemSettingValidator,
     validate,
     asyncHandler(createSetting)
 );
 
-/**
- * #swagger.tags = ['System Settings']
- * #swagger.summary = 'Update system setting'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/SystemSetting'
- *    }
- * }
- */
-
 router.put(
     "/:id",
+
+    /*
+    #swagger.tags = ['System Settings']
+    #swagger.summary = 'Update system setting'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            key: "maintenance_mode",
+            value: "true",
+            description: "Updated system maintenance state"
+        }
+    }
+    */
+
     mongoIdValidator,
     updateSystemSettingValidator,
     validate,

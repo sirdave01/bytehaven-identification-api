@@ -42,43 +42,56 @@ router.get(
     asyncHandler(getUser)
 );
 
-/**
- * #swagger.tags = ['Users']
- * #swagger.summary = 'Create a new user'
- * #swagger.description = 'Creates a new BHID user.'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/User'
- *    }
- * }
- */
-
 router.post(
     "/",
+
+    /* 
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Create a new user'
+    #swagger.description = 'Creates a new BHID user.'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            first_name: "Caleb",
+            last_name: "Osigwe",
+            username: "caleb01",
+            email: "caleb@example.com",
+            password: "password123",
+            role_id: "66a7f3e4a8b1c92f5d654321",
+            status: "active"
+        }
+    }
+    */
+
     createUserValidator,
     validate,
     asyncHandler(createUser)
 );
 
-/**
- * #swagger.tags = ['Users']
- * #swagger.summary = 'Update a user'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/User'
- *    }
- * }
- */
-
-
 router.put(
     "/:id",
+
+    /*
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Update a user'
+    #swagger.description = 'Updates an existing BHID user.'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            first_name: "Caleb",
+            last_name: "Osigwe",
+            username: "caleb01",
+            email: "caleb@example.com",
+            role_id: "66a7f3e4a8b1c92f5d654321",
+            status: "active"
+        }
+    }
+    */
+
     mongoIdValidator,
     updateUserValidator,
     validate,

@@ -31,41 +31,54 @@ router.get(
     asyncHandler(getRole)
 );
 
-/**
- * #swagger.tags = ['Roles']
- * #swagger.summary = 'Create role'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/Role'
- *    }
- * }
- */
-
 router.post(
     "/",
+
+    /*
+    #swagger.tags = ['Roles']
+    #swagger.summary = 'Create role'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            name: "Super Admin",
+            description: "Full system access",
+            permissions: [
+                "create_user",
+                "update_user",
+                "delete_user"
+            ]
+        }
+    }
+    */
+
     createRoleValidator,
     validate,
     asyncHandler(createRole)
 );
 
-/**
- * #swagger.tags = ['Roles']
- * #swagger.summary = 'Update role'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/Role'
- *    }
- * }
- */
-
 router.put(
     "/:id",
+
+    /*
+    #swagger.tags = ['Roles']
+    #swagger.summary = 'Update role'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            name: "Administrator",
+            description: "Updated access level",
+            permissions: [
+                "create_user",
+                "update_user"
+            ]
+        }
+    }
+    */
+
     mongoIdValidator,
     updateRoleValidator,
     validate,

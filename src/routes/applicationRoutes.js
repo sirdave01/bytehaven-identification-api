@@ -42,43 +42,50 @@ router.get(
     asyncHandler(getApplication)
 );
 
-/**
- * #swagger.tags = ['Applications']
- * #swagger.summary = 'Create application'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/Application'
- *    }
- * }
- */
-
 router.post(
     "/",
+
+    /*
+    #swagger.tags = ['Applications']
+    #swagger.summary = 'Create application'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            name: "HavenChat",
+            description: "Messaging platform inside ByteHaven ecosystem",
+            status: "active",
+            version: "1.0.0"
+        }
+    }
+    */
+
     createApplicationValidator,
     validate,
     asyncHandler(createApplication)
 );
 
 
-/**
- * #swagger.tags = ['Applications']
- * #swagger.summary = 'Update application'
- *
- * #swagger.parameters['body'] = {
- *    in: 'body',
- *    required: true,
- *    schema: {
- *       $ref: '#/definitions/Application'
- *    }
- * }
- */
-
-
 router.put(
     "/:id",
+
+    /*
+    #swagger.tags = ['Applications']
+    #swagger.summary = 'Update application'
+
+    #swagger.parameters['body'] = {
+        in: 'body',
+        required: true,
+        schema: {
+            name: "HavenChat",
+            description: "Updated messaging platform",
+            status: "active",
+            version: "1.1.0"
+        }
+    }
+    */
+
     mongoIdValidator,
     updateApplicationValidator,
     validate,

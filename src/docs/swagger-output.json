@@ -2,31 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "ByteHaven Identification System API",
-    "description": "REST API prototype for the ByteHaven Identification System (BHID). Developed as a CRUD API with MongoDB, validation, and authentication-ready architecture.",
+    "description": "REST API prototype for the ByteHaven Identification System (BHID).",
     "version": "1.0.0"
   },
-  "host": "bytehaven-identification-api.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Users",
-      "description": "User Management"
-    },
-    {
-      "name": "Roles",
-      "description": "Role Management"
-    },
-    {
-      "name": "Applications",
-      "description": "Registered Applications"
-    },
-    {
-      "name": "System Settings",
-      "description": "System Configuration"
-    }
-  ],
   "schemes": [
-    "https"
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -37,14 +19,6 @@
   "paths": {
     "/": {
       "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
         "description": "",
         "responses": {
           "default": {
@@ -73,7 +47,51 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "description": "Creates a new BHID user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "first_name": {
+                  "type": "string",
+                  "example": "Caleb"
+                },
+                "last_name": {
+                  "type": "string",
+                  "example": "Osigwe"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "caleb01"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "caleb@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "role_id": {
+                  "type": "string",
+                  "example": "66a7f3e4a8b1c92f5d654321"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -99,13 +117,51 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update a user",
+        "description": "Updates an existing BHID user.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "first_name": {
+                  "type": "string",
+                  "example": "Caleb"
+                },
+                "last_name": {
+                  "type": "string",
+                  "example": "Osigwe"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "caleb01"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "caleb@example.com"
+                },
+                "role_id": {
+                  "type": "string",
+                  "example": "66a7f3e4a8b1c92f5d654321"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -141,7 +197,42 @@
         }
       },
       "post": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Create role",
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Super Admin"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Full system access"
+                },
+                "permissions": {
+                  "type": "array",
+                  "example": [
+                    "create_user",
+                    "update_user",
+                    "delete_user"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -167,6 +258,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Update role",
         "description": "",
         "parameters": [
           {
@@ -174,6 +269,34 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Administrator"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated access level"
+                },
+                "permissions": {
+                  "type": "array",
+                  "example": [
+                    "create_user",
+                    "update_user"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -209,7 +332,39 @@
         }
       },
       "post": {
+        "tags": [
+          "Applications"
+        ],
+        "summary": "Create application",
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "HavenChat"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Messaging platform inside ByteHaven ecosystem"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "version": {
+                  "type": "string",
+                  "example": "1.0.0"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -235,6 +390,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Applications"
+        ],
+        "summary": "Update application",
         "description": "",
         "parameters": [
           {
@@ -242,6 +401,32 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "HavenChat"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated messaging platform"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "version": {
+                  "type": "string",
+                  "example": "1.1.0"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -277,7 +462,35 @@
         }
       },
       "post": {
+        "tags": [
+          "System Settings"
+        ],
+        "summary": "Create system setting",
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "maintenance_mode"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Controls system maintenance state"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -303,22 +516,10 @@
         }
       },
       "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+        "tags": [
+          "System Settings"
         ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
+        "summary": "Update system setting",
         "description": "",
         "parameters": [
           {
@@ -326,312 +527,28 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/users/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/users/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
+          },
           {
-            "name": "id",
-            "in": "path",
+            "name": "body",
+            "in": "body",
             "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/roles/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/roles/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/applications/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/applications/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/system-settings/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/system-settings/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "example": "maintenance_mode"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated system maintenance state"
+                }
+              }
+            }
           }
         ],
         "responses": {

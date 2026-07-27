@@ -12,19 +12,17 @@ const doc = {
     info: {
         title: "ByteHaven Identification System API",
         description:
-            "REST API prototype for the ByteHaven Identification System (BHID). Developed as a CRUD API with MongoDB, validation, and authentication-ready architecture.",
+            "REST API prototype for the ByteHaven Identification System (BHID).",
         version: "1.0.0"
     },
 
-    host: isProduction
-        ? "bytehaven-identification-api.onrender.com"
-        : "localhost:3000",
+    host: process.env.SWAGGER_HOST || "localhost:3000",
 
     basePath: "/",
 
-    schemes: isProduction
-        ? ["https"]
-        : ["http"],
+    schemes: [
+        process.env.SWAGGER_SCHEME || "http"
+    ],
 
     consumes: [
         "application/json"
@@ -34,47 +32,18 @@ const doc = {
         "application/json"
     ],
 
-    tags: [
-        {
-            name: "Users",
-            description: "User Management"
-        },
-        {
-            name: "Roles",
-            description: "Role Management"
-        },
-        {
-            name: "Applications",
-            description: "Registered Applications"
-        },
-        {
-            name: "System Settings",
-            description: "System Configuration"
-        }
-    ],
-
     definitions: {
-
         ...userSchema,
-
         ...roleSchema,
-
         ...applicationSchema,
-
         ...systemSettingSchema
-
     }
 };
 
 const outputFile = "./src/docs/swagger-output.json";
 
 const endpointsFiles = [
-    "./server.js",
-    "./src/routes/index.js",
-    "./src/routes/userRoutes.js",
-    "./src/routes/roleRoutes.js",
-    "./src/routes/applicationRoutes.js",
-    "./src/routes/systemSettingRoutes.js"
+    "./server.js"
 ];
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);
