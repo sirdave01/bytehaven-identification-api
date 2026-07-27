@@ -5,10 +5,10 @@
     "description": "REST API prototype for the ByteHaven Identification System (BHID).",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
+  "host": "bytehaven-identification-api.onrender.com",
+  "basePath": "/api/v1",
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
