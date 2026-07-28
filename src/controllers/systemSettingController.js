@@ -1,6 +1,4 @@
 // this is the system setting controller
-
-import { asyncHandler } from "../middleware/asyncHandler.js";
 import * as Setting from "../models/systemSetting.js";
 
 import {
@@ -8,6 +6,8 @@ import {
     createdResponse,
     notFoundResponse
 } from "../utils/response.js";
+
+import { asyncHandler } from "../middleware/asyncHandler.js";
 
 
 // =======================================

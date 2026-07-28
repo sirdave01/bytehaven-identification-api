@@ -12,6 +12,8 @@ import {
 
 } from "../utils/response.js";
 
+import { asyncHandler } from "../middleware/asyncHandler.js";
+
 // =======================================
 // Get all applications
 // =======================================
