@@ -5,10 +5,10 @@
     "description": "\nREST API prototype for the ByteHaven Identification System (BHID).\n\n=========================================================\nAUTHENTICATION\n=========================================================\n\nThis API uses GitHub OAuth authentication through Passport.js.\n\nBefore testing protected endpoints:\n\n1. Visit:\n   /api/v2/auth/github\n\n2. Sign in with your GitHub account.\n\n3. After successful authentication, GitHub will redirect you\n   back to the Swagger documentation.\n\n4. You can now access all protected endpoints.\n\nLogout:\n   /api/v2/auth/logout\n\nCurrent Authenticated User:\n   /api/v2/auth/me\n\n---------------------------------------------------------\nNOTE\n---------------------------------------------------------\n\nThis API uses Passport Session Authentication.\n\nNo JWT or API key is required.\n\nThe browser automatically stores the authentication session\nafter a successful GitHub login.\n",
     "version": "2.0.0"
   },
-  "host": "localhost:3000",
+  "host": "bytehaven-identification-api.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
