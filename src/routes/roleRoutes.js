@@ -36,6 +36,9 @@ router.post(
     "/",
 
     /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
     #swagger.tags = ['Roles']
     #swagger.summary = 'Create role'
 
@@ -63,6 +66,9 @@ router.put(
     "/:id",
 
     /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
     #swagger.tags = ['Roles']
     #swagger.summary = 'Update role'
 
@@ -86,6 +92,9 @@ router.put(
     updateRole
 );
 
+//  #swagger.security = [{
+//         "sessionAuth": []
+//     }]
 router.delete(
     "/:id",
     isAuthenticated,

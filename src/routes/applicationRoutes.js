@@ -47,6 +47,9 @@ router.post(
     "/",
 
     /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
     #swagger.tags = ['Applications']
     #swagger.summary = 'Create application'
 
@@ -72,6 +75,9 @@ router.put(
     "/:id",
 
     /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
     #swagger.tags = ['Applications']
     #swagger.summary = 'Update application'
 
@@ -92,6 +98,10 @@ router.put(
     validate,
     updateApplication
 );
+
+//  #swagger.security = [{
+//         "sessionAuth": []
+//     }]
 
 router.delete(
     "/:id",

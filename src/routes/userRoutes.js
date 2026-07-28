@@ -46,7 +46,11 @@ router.get(
 router.post(
     "/",
 
-    /* 
+    /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
+
     #swagger.tags = ['Users']
     #swagger.summary = 'Create a new user'
     #swagger.description = 'Creates a new BHID user.'
@@ -75,6 +79,10 @@ router.put(
     "/:id",
 
     /*
+     #swagger.security = [{
+        "sessionAuth": []
+    }]
+
     #swagger.tags = ['Users']
     #swagger.summary = 'Update a user'
     #swagger.description = 'Updates an existing BHID user.'
@@ -98,6 +106,10 @@ router.put(
     validate,
     updateUser
 );
+
+//  #swagger.security = [{
+//         "sessionAuth": []
+//     }]
 
 router.delete(
     "/:id",
