@@ -5,11 +5,19 @@
     "description": "REST API prototype for the ByteHaven Identification System (BHID).",
     "version": "1.0.0"
   },
-  "host": "bytehaven-identification-api.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
+  "securityDefinitions": {
+    "cookieAuth": {
+      "type": "apiKey",
+      "in": "cookie",
+      "name": "connect.sid",
+      "description": "Passport session cookie generated after GitHub login."
+    }
+  },
   "consumes": [
     "application/json"
   ],
@@ -37,7 +45,7 @@
         }
       }
     },
-    "/api/v1/users/": {
+    "/api/v2/users/": {
       "get": {
         "description": "",
         "responses": {
@@ -96,10 +104,15 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       }
     },
-    "/api/v1/users/{id}": {
+    "/api/v2/users/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -168,7 +181,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -187,7 +205,7 @@
         }
       }
     },
-    "/api/v1/roles/": {
+    "/api/v2/roles/": {
       "get": {
         "description": "",
         "responses": {
@@ -237,10 +255,15 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       }
     },
-    "/api/v1/roles/{id}": {
+    "/api/v2/roles/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -303,7 +326,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -322,7 +350,60 @@
         }
       }
     },
-    "/api/v1/applications/": {
+    "/api/v2/auth/github": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/auth/github/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/auth/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v2/auth/login-failed": {
+      "get": {
+        "description": "",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v2/auth/me": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v2/applications/": {
       "get": {
         "description": "",
         "responses": {
@@ -369,10 +450,15 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       }
     },
-    "/api/v1/applications/{id}": {
+    "/api/v2/applications/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -433,7 +519,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -452,7 +543,7 @@
         }
       }
     },
-    "/api/v1/system-settings/": {
+    "/api/v2/system-settings/": {
       "get": {
         "description": "",
         "responses": {
@@ -495,10 +586,15 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       }
     },
-    "/api/v1/system-settings/{id}": {
+    "/api/v2/system-settings/{id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -555,7 +651,12 @@
           "default": {
             "description": ""
           }
-        }
+        },
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -589,8 +690,7 @@
             "first_name",
             "last_name",
             "username",
-            "email",
-            "password"
+            "email"
           ],
           "items": {
             "type": "string"
@@ -672,8 +772,14 @@
               "type": "object",
               "properties": {
                 "type": {
-                  "type": "string",
-                  "example": "string"
+                  "type": "array",
+                  "example": [
+                    "string",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "example": {
                   "type": "string",

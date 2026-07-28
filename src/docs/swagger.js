@@ -91,20 +91,14 @@ const doc = {
     // in a browser cookie.
 
     securityDefinitions: {
-
-        sessionAuth: {
-
-            type: "apiKey",
-
-            in: "cookie",
-
-            name: "connect.sid",
-
-            description:
-                "Passport session authentication cookie."
-
+        
+    cookieAuth: {
+        type: "apiKey",
+        in: "cookie",
+        name: "connect.sid",
+        description:
+            "Passport session cookie generated after GitHub login."
         }
-
     },
 
 

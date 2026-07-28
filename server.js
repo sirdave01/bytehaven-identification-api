@@ -26,15 +26,48 @@ const app = express();
 // ===============================
 
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+
+        origin:
+            process.env.NODE_ENV === "production"
+
+            ? "https://bytehaven-identification-api.onrender.com"
+
+            : "http://localhost:3000",
+
+        credentials: true
+
+    })
+);
 app.use(helmet());
 app.use(morgan("dev"));
 
 app.use(
     session({
+
         secret: config.sessionSecret,
+
         resave: false,
+
         saveUninitialized: false,
+
+        cookie: {
+
+            maxAge: 1000 * 60 * 60 * 24,
+
+            httpOnly: true,
+
+            secure:
+                process.env.NODE_ENV === "production",
+
+            sameSite:
+                process.env.NODE_ENV === "production"
+                ? "none"
+                : "lax"
+
+        }
+
     })
 );
 

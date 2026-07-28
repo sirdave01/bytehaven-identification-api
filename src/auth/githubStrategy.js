@@ -43,8 +43,7 @@ passport.use(
 
 
             // GitHub redirects here after login
-            callbackURL:
-                "/api/v2/auth/github/callback"
+            callbackURL: config.githubCallbackUrl,
         },
 
 
