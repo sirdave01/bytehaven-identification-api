@@ -7,27 +7,24 @@
 // - API information
 // - Environment configuration
 // - Data schemas
-// - Authentication definition
 // =======================================
-
 
 import swaggerAutogen from "swagger-autogen";
 
+// =======================================
+// Import Swagger Schemas
+// =======================================
 
-// Database schemas
 import { userSchema } from "./schemas/userSchema.js";
 import { roleSchema } from "./schemas/roleSchema.js";
 import { applicationSchema } from "./schemas/applicationSchema.js";
 import { systemSettingSchema } from "./schemas/systemSettingSchema.js";
 
+// =======================================
+// Detect Current Environment
+// =======================================
 
-
-// Detect environment
-
-const isProduction =
-    process.env.NODE_ENV === "production";
-
-
+const isProduction = process.env.NODE_ENV === "production";
 
 // =======================================
 // Swagger Document Configuration
@@ -35,101 +32,98 @@ const isProduction =
 
 const doc = {
 
-
     info: {
 
-        title:
-            "ByteHaven Identification System API",
+        title: "ByteHaven Identification System API",
 
-        description:
-            "REST API prototype for the ByteHaven Identification System (BHID).",
+        description: `
+REST API prototype for the ByteHaven Identification System (BHID).
 
-        version:
-            "1.0.0"
+=========================================================
+AUTHENTICATION
+=========================================================
+
+This API uses GitHub OAuth authentication through Passport.js.
+
+Before testing protected endpoints:
+
+1. Visit:
+   /api/v2/auth/github
+
+2. Sign in with your GitHub account.
+
+3. After successful authentication, GitHub will redirect you
+   back to the Swagger documentation.
+
+4. You can now access all protected endpoints.
+
+Logout:
+   /api/v2/auth/logout
+
+Current Authenticated User:
+   /api/v2/auth/me
+
+---------------------------------------------------------
+NOTE
+---------------------------------------------------------
+
+This API uses Passport Session Authentication.
+
+No JWT or API key is required.
+
+The browser automatically stores the authentication session
+after a successful GitHub login.
+`,
+
+        version: "2.0.0"
 
     },
 
-
+    // =======================================
+    // Host Configuration
+    // =======================================
 
     host: isProduction
-
         ? "bytehaven-identification-api.onrender.com"
-
         : "localhost:3000",
-
-
 
     basePath: "/",
 
-
-
     schemes: isProduction
-
         ? ["https"]
-
         : ["http"],
-
-
 
     consumes: [
         "application/json"
     ],
 
-
-
     produces: [
         "application/json"
     ],
 
-
-
     // =======================================
-    // Authentication Configuration
+    // Swagger Schemas
     // =======================================
-    // Passport uses express-session.
-    // The authenticated session is stored
-    // in a browser cookie.
-
-    securityDefinitions: {
-        
-    cookieAuth: {
-        type: "apiKey",
-        in: "cookie",
-        name: "connect.sid",
-        description:
-            "Passport session cookie generated after GitHub login."
-        }
-    },
-
-
 
     definitions: {
 
         ...userSchema,
-
         ...roleSchema,
-
         ...applicationSchema,
-
         ...systemSettingSchema
 
     }
 
 };
 
-
-
 // =======================================
-// Swagger Output Location
+// Output File
 // =======================================
 
-const outputFile =
-    "./src/docs/swagger-output.json";
-
-
+const outputFile = "./src/docs/swagger-output.json";
 
 // =======================================
-// Files Swagger Should Scan
+// Files to Scan
 // =======================================
 
 const endpointsFiles = [
@@ -138,12 +132,8 @@ const endpointsFiles = [
 
 ];
 
+// =======================================
+// Generate Swagger Documentation
+// =======================================
 
-
-// Generate Swagger JSON
-
-swaggerAutogen()(
-    outputFile,
-    endpointsFiles,
-    doc
-);
+swaggerAutogen()(outputFile, endpointsFiles, doc);

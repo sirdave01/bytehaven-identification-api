@@ -47,9 +47,6 @@ router.post(
     "/",
 
     /*
-     #swagger.security = [{
-        "sessionAuth": []
-    }]
 
     #swagger.tags = ['Users']
     #swagger.summary = 'Create a new user'
@@ -79,9 +76,6 @@ router.put(
     "/:id",
 
     /*
-     #swagger.security = [{
-        "sessionAuth": []
-    }]
 
     #swagger.tags = ['Users']
     #swagger.summary = 'Update a user'
@@ -107,9 +101,6 @@ router.put(
     updateUser
 );
 
-//  #swagger.security = [{
-//         "sessionAuth": []
-//     }]
 
 router.delete(
     "/:id",

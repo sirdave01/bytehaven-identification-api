@@ -36,9 +36,6 @@ router.post(
     "/",
 
     /*
-     #swagger.security = [{
-        "sessionAuth": []
-    }]
         
     #swagger.tags = ['System Settings']
     #swagger.summary = 'Create system setting'
@@ -63,9 +60,6 @@ router.put(
     "/:id",
 
     /*
-     #swagger.security = [{
-        "sessionAuth": []
-    }]
         
     #swagger.tags = ['System Settings']
     #swagger.summary = 'Update system setting'
@@ -87,9 +81,6 @@ router.put(
     updateSetting
 );
 
-//  #swagger.security = [{
-//         "sessionAuth": []
-//     }]
 router.delete(
     "/:id",
     isAuthenticated,
