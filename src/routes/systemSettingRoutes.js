@@ -15,20 +15,21 @@ import {
 
 import { mongoIdValidator } from "../validators/commonValidator.js";
 import { validate } from "../middleware/validate.js";
-import { asyncHandler } from "../middleware/asyncHandler.js";
+
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const router = Router();
 
 router.get(
     "/",
-    asyncHandler(getSettings)
+    getSettings
 );
 
 router.get(
     "/:id",
     mongoIdValidator,
     validate,
-    asyncHandler(getSetting)
+    getSetting
 );
 
 router.post(
@@ -48,10 +49,10 @@ router.post(
         }
     }
     */
-
+    isAuthenticated,
     createSystemSettingValidator,
     validate,
-    asyncHandler(createSetting)
+    createSetting
 );
 
 router.put(
@@ -71,18 +72,19 @@ router.put(
         }
     }
     */
-
+    isAuthenticated,
     mongoIdValidator,
     updateSystemSettingValidator,
     validate,
-    asyncHandler(updateSetting)
+    updateSetting
 );
 
 router.delete(
     "/:id",
+    isAuthenticated,
     mongoIdValidator,
     validate,
-    asyncHandler(deleteSetting)
+    deleteSetting
 );
 
 export default router;

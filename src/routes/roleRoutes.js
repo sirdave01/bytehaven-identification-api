@@ -15,20 +15,21 @@ import {
 
 import { mongoIdValidator } from "../validators/commonValidator.js";
 import { validate } from "../middleware/validate.js";
-import { asyncHandler } from "../middleware/asyncHandler.js";
+
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const router = Router();
 
 router.get(
     "/",
-    asyncHandler(getRoles)
+    getRoles
 );
 
 router.get(
     "/:id",
     mongoIdValidator,
     validate,
-    asyncHandler(getRole)
+    getRole
 );
 
 router.post(
@@ -52,10 +53,10 @@ router.post(
         }
     }
     */
-
+    isAuthenticated,
     createRoleValidator,
     validate,
-    asyncHandler(createRole)
+    createRole
 );
 
 router.put(
@@ -78,18 +79,19 @@ router.put(
         }
     }
     */
-
+    isAuthenticated,
     mongoIdValidator,
     updateRoleValidator,
     validate,
-    asyncHandler(updateRole)
+    updateRole
 );
 
 router.delete(
     "/:id",
+    isAuthenticated,
     mongoIdValidator,
     validate,
-    asyncHandler(deleteRole)
+    deleteRole
 );
 
 export default router;

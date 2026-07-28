@@ -15,7 +15,8 @@ import {
 
 import { mongoIdValidator } from "../validators/commonValidator.js";
 import { validate } from "../middleware/validate.js";
-import { asyncHandler } from "../middleware/asyncHandler.js";
+
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const router = Router();
 
@@ -27,7 +28,7 @@ const router = Router();
 
 router.get(
     "/",
-    asyncHandler(getApplications)
+    getApplications
 );
 
 /**
@@ -39,7 +40,7 @@ router.get(
     "/:id",
     mongoIdValidator,
     validate,
-    asyncHandler(getApplication)
+    getApplication
 );
 
 router.post(
@@ -60,10 +61,10 @@ router.post(
         }
     }
     */
-
+    isAuthenticated,
     createApplicationValidator,
     validate,
-    asyncHandler(createApplication)
+    createApplication
 );
 
 
@@ -85,18 +86,19 @@ router.put(
         }
     }
     */
-
+    isAuthenticated,
     mongoIdValidator,
     updateApplicationValidator,
     validate,
-    asyncHandler(updateApplication)
+    updateApplication
 );
 
 router.delete(
     "/:id",
+    isAuthenticated,
     mongoIdValidator,
     validate,
-    asyncHandler(deleteApplication)
+    deleteApplication
 );
 
 export default router;

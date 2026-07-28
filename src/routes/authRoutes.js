@@ -8,6 +8,7 @@ import {
     currentUser
 } from "../controllers/authController.js";
 
+
 const router = Router();
 
 router.get(
@@ -20,7 +21,7 @@ router.get(
 router.get(
     "/github/callback",
     passport.authenticate("github", {
-        failureRedirect: "/api/v1/auth/login-failed",
+        failureRedirect: "/api/v2/auth/login-failed",
         session: true
     }),
     githubCallbackSuccess
