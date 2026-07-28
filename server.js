@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import session from "express-session";
+import passport from "./src/auth/githubStrategy.js";
 
 import { config } from "./src/config/config.js";
 import {
@@ -29,6 +31,17 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 app.use(
+    session({
+        secret: config.sessionSecret,
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
     "/api-docs",
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocument)
@@ -39,7 +52,7 @@ app.use(
 // API Routes
 // ===============================
 
-app.use("/api/v1", routes);
+app.use("/api/v2", routes);
 
 
 // ===============================
