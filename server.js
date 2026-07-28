@@ -6,6 +6,7 @@ import session from "express-session";
 import passport from "./src/auth/githubStrategy.js";
 
 import { config } from "./src/config/config.js";
+
 import {
     connectDatabase,
     checkDatabaseConnection
@@ -18,7 +19,15 @@ import routes from "./src/routes/index.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./src/docs/swagger-output.json" with { type: "json" };
 
+
 const app = express();
+
+
+// ===============================
+// Trust Proxy (Required for Render)
+// ===============================
+
+app.set("trust proxy", 1);
 
 
 // ===============================
@@ -26,25 +35,36 @@ const app = express();
 // ===============================
 
 app.use(express.json());
+
+
 app.use(
     cors({
 
         origin:
             process.env.NODE_ENV === "production"
 
-            ? "https://bytehaven-identification-api.onrender.com"
-
-            : "http://localhost:3000",
+                ? process.env.CLIENT_URL
+                : "http://localhost:3000",
 
         credentials: true
 
     })
 );
+
+
 app.use(helmet());
+
 app.use(morgan("dev"));
+
+
+// ===============================
+// Session Configuration
+// ===============================
 
 app.use(
     session({
+
+        name: "bhid.sid",
 
         secret: config.sessionSecret,
 
@@ -63,16 +83,51 @@ app.use(
 
             sameSite:
                 process.env.NODE_ENV === "production"
-                ? "none"
-                : "lax"
+                    ? "none"
+                    : "lax"
 
         }
 
     })
 );
 
+
+// ===============================
+// Passport Authentication
+// ===============================
+
 app.use(passport.initialize());
+
 app.use(passport.session());
+
+
+// ===============================
+// Temporary Session Debugging
+// Remove after fixing
+// ===============================
+
+app.use((req, res, next) => {
+
+    console.log("SESSION ID:", req.sessionID);
+
+    console.log(
+        "AUTHENTICATED:",
+        req.isAuthenticated()
+    );
+
+    console.log(
+        "USER:",
+        req.user?.email || "No User"
+    );
+
+    next();
+
+});
+
+
+// ===============================
+// Swagger Documentation
+// ===============================
 
 app.use(
     "/api-docs",
@@ -96,32 +151,54 @@ app.get("/", async (req, res, next) => {
 
     try {
 
-        const databaseStatus = await checkDatabaseConnection();
+        const databaseStatus =
+            await checkDatabaseConnection();
+
 
         return successResponse(
             res,
             "Welcome to ByteHaven Identification System API",
             {
-                project: "BHID Prototype v0.2",
-                version: "2.0.0",
-                status: "online",
+
+                project:
+                    "ByteHaven Identification System",
+
+                version:
+                    "2.0.0",
+
+                status:
+                    "online",
+
+                authentication:
+                    req.isAuthenticated(),
 
                 endpoints: {
-                    api: "/api/v2",
-                    documentation: "/api-docs",
-                    health: "/health"
+
+                    api:
+                        "/api/v2",
+
+                    documentation:
+                        "/api-docs",
+
+                    health:
+                        "/health"
+
                 },
 
-                database: databaseStatus
-                    ? "connected"
-                    : "disconnected",
+                database:
+                    databaseStatus
+                        ? "connected"
+                        : "disconnected",
 
-                timestamp: new Date()
+                timestamp:
+                    new Date()
+
             },
             200
         );
 
-    } catch (error) {
+
+    } catch(error) {
 
         next(error);
 
@@ -138,23 +215,35 @@ app.get("/health", async (req, res, next) => {
 
     try {
 
-        const databaseStatus = await checkDatabaseConnection();
+        const databaseStatus =
+            await checkDatabaseConnection();
+
 
         return successResponse(
             res,
             "API health check successful",
             {
-                api: "running",
-                database: databaseStatus
-                    ? "healthy"
-                    : "unhealthy",
-                uptime: process.uptime(),
-                timestamp: new Date()
+
+                api:
+                    "running",
+
+                database:
+                    databaseStatus
+                        ? "healthy"
+                        : "unhealthy",
+
+                uptime:
+                    process.uptime(),
+
+                timestamp:
+                    new Date()
+
             },
             200
         );
 
-    } catch (error) {
+
+    } catch(error) {
 
         next(error);
 
@@ -170,8 +259,12 @@ app.get("/health", async (req, res, next) => {
 app.use((req, res) => {
 
     return res.status(404).json({
+
         success: false,
-        message: "Route not found"
+
+        message:
+            "Route not found"
+
     });
 
 });
@@ -194,33 +287,61 @@ async function startServer() {
 
         await connectDatabase();
 
+
         app.listen(config.port, () => {
 
+
             console.log("========================================");
-            console.log("🚀 ByteHaven Identification API Started");
+
+            console.log(
+                "🚀 ByteHaven Identification API Started"
+            );
+
             console.log("========================================");
-            console.log(`🌍 Server         : http://localhost:${config.port}`);
-            console.log(`❤️ Health         : http://localhost:${config.port}/health`);
-            console.log(`📚 Swagger Docs   : http://localhost:${config.port}/api-docs`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/users`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/roles`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/applications`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/system-settings`);
-            console.log("✅ MongoDB        : Connected");
+
+
+            console.log(
+                `🌍 Port: ${config.port}`
+            );
+
+
+            console.log(
+                `📚 Swagger: /api-docs`
+            );
+
+
+            console.log(
+                `🔗 API: /api/v2`
+            );
+
+
+            console.log(
+                "✅ MongoDB Connected"
+            );
+
+
             console.log("========================================");
+
 
         });
 
-    } catch (error) {
 
-        console.error("❌ Failed to start server");
+    } catch(error) {
+
+
+        console.error(
+            "❌ Failed to start server"
+        );
+
+
         console.error(error);
+
 
         process.exit(1);
 
     }
 
 }
+
 
 startServer();
