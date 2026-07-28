@@ -12,9 +12,13 @@ import {
 
 } from "../utils/response.js";
 
+// =======================================
+// Get all roles
+// =======================================
+// Retrieves all roles from the database
+// Public/Protected access will be controlled at the route level
 
-
-export const getRoles = async (req, res) => {
+export const getRoles = asyncHandler(async (req, res) => {
 
     const roles = await Role.getAllRoles();
 
@@ -28,11 +32,14 @@ export const getRoles = async (req, res) => {
 
     );
 
-};
+});
 
+// =======================================
+// Get single roles by ID
+// =======================================
+// Retrieves one roles using MongoDB ObjectId
 
-
-export const getRole = async (req, res) => {
+export const getRole = asyncHandler(async (req, res) => {
 
     const role = await Role.getRoleById(
 
@@ -60,11 +67,13 @@ export const getRole = async (req, res) => {
 
     );
 
-};
+});
 
+// =======================================
+// Create new roles
+// ======================================= 
 
-
-export const createRole = async (req, res) => {
+export const createRole = asyncHandler(async (req, res) => {
 
     const result = await Role.createRole(
 
@@ -82,11 +91,14 @@ export const createRole = async (req, res) => {
 
     );
 
-};
+});
 
+// =======================================
+// Update roles
+// =======================================
+// Updates existing roles information by ID 
 
-
-export const updateRole = async (req, res) => {
+export const updateRole = asyncHandler(async (req, res) => {
 
     const result = await Role.updateRole(
 
@@ -116,11 +128,14 @@ export const updateRole = async (req, res) => {
 
     );
 
-};
+});
 
+// =======================================
+// Delete role
+// =======================================
+// Permanently removes a role from database 
 
-
-export const deleteRole = async (req, res) => {
+export const deleteRole = asyncHandler(async (req, res) => {
 
     const result = await Role.deleteRole(
 
@@ -147,4 +162,4 @@ export const deleteRole = async (req, res) => {
 
     );
 
-};
+});

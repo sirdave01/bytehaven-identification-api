@@ -12,9 +12,13 @@ import {
 
 } from "../utils/response.js";
 
+// =======================================
+// Get all applications
+// =======================================
+// Retrieves all applications from the database
+// Public/Protected access will be controlled at the route level
 
-
-export const getApplications = async (req,res)=>{
+export const getApplications = asyncHandler(async (req,res)=>{
 
     const applications = await Application.getAllApplications();
 
@@ -28,11 +32,14 @@ export const getApplications = async (req,res)=>{
 
     );
 
-};
+});
 
+// =======================================
+// Get single applications by ID
+// =======================================
+// Retrieves one applications using MongoDB ObjectId
 
-
-export const getApplication = async(req,res)=>{
+export const getApplication = asyncHandler(async(req,res)=>{
 
     const application = await Application.getApplicationById(
 
@@ -60,11 +67,13 @@ export const getApplication = async(req,res)=>{
 
     );
 
-};
+});
 
+// =======================================
+// Create new applications
+// =======================================
 
-
-export const createApplication = async(req,res)=>{
+export const createApplication = asyncHandler(async(req,res)=>{
 
     const result = await Application.createApplication(
 
@@ -82,11 +91,14 @@ export const createApplication = async(req,res)=>{
 
     );
 
-};
+});
 
+// =======================================
+// Update applications
+// =======================================
+// Updates existing applications information by ID 
 
-
-export const updateApplication = async(req,res)=>{
+export const updateApplication = asyncHandler(async(req,res)=>{
 
     const result = await Application.updateApplication(
 
@@ -113,11 +125,14 @@ export const updateApplication = async(req,res)=>{
 
     );
 
-};
+});
 
+// =======================================
+// Delete application
+// =======================================
+// Permanently removes a application from database 
 
-
-export const deleteApplication = async(req,res)=>{
+export const deleteApplication = asyncHandler(async(req,res)=>{
 
     const result = await Application.deleteApplication(
 
@@ -143,4 +158,4 @@ export const deleteApplication = async(req,res)=>{
 
     );
 
-};
+});

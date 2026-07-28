@@ -1,18 +1,36 @@
 import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
 
+import {
+    getUserByGithubId,
+    getUserByEmail,
+    createUser,
+    updateUserByEmail,
+    updateUserByGithubId
+} from "../models/users.js";
+
+import { config } from "../config/config.js";
+
 passport.use(
+
   new GitHubStrategy(
+  
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
+      clientID: config.githubClientId,
+
+      clientSecret: config.githubClientSecret,
+
+      callbackURL: "/api/v2/auth/github/callback",
+
     },
+
     async (accessToken, refreshToken, profile, done) => {
+
       try {
-        // We'll save or update the user in MongoDB later.
         return done(null, profile);
+
       } catch (error) {
+
         return done(error, null);
       }
     }

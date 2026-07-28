@@ -5,6 +5,21 @@ import { ObjectId } from "mongodb";
 
 import { getDatabase } from "../database/mongodb.js";
 
+// updating via the OAuth
+
+export async function updateOne(collection, query, document) {
+    const db = getDatabase();
+
+    document.updated_at = new Date();
+
+    return await db.collection(collection).updateOne(
+        query,
+        {
+            $set: document
+        }
+    );
+}
+
 export async function findAll(collection) {
     const db = getDatabase();
 

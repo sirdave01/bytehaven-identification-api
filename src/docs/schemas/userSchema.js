@@ -8,8 +8,7 @@ export const userSchema = {
             "first_name",
             "last_name",
             "username",
-            "email",
-            "password"
+            "email"
         ],
 
         properties: {
@@ -41,7 +40,7 @@ export const userSchema = {
             },
 
             password: {
-                type: "string",
+                type: ["string", "null"],
                 example: "hashed_password"
             },
 

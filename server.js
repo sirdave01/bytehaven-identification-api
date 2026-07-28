@@ -69,12 +69,12 @@ app.get("/", async (req, res, next) => {
             res,
             "Welcome to ByteHaven Identification System API",
             {
-                project: "BHID Prototype v0.1",
-                version: "1.0.0",
+                project: "BHID Prototype v0.2",
+                version: "2.0.0",
                 status: "online",
 
                 endpoints: {
-                    api: "/api/v1",
+                    api: "/api/v2",
                     documentation: "/api-docs",
                     health: "/health"
                 },
@@ -169,11 +169,11 @@ async function startServer() {
             console.log(`🌍 Server         : http://localhost:${config.port}`);
             console.log(`❤️ Health         : http://localhost:${config.port}/health`);
             console.log(`📚 Swagger Docs   : http://localhost:${config.port}/api-docs`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/users`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/roles`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/applications`);
-            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v1/system-settings`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/users`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/roles`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/applications`);
+            console.log(`🔗 REST API       : http://localhost:${config.port}/api/v2/system-settings`);
             console.log("✅ MongoDB        : Connected");
             console.log("========================================");
 

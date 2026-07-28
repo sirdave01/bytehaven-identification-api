@@ -1,5 +1,6 @@
 // this is the system setting controller
 
+import { asyncHandler } from "../middleware/asyncHandler.js";
 import * as Setting from "../models/systemSetting.js";
 
 import {
@@ -8,7 +9,14 @@ import {
     notFoundResponse
 } from "../utils/response.js";
 
-export const getSettings = async (req, res) => {
+
+// =======================================
+// Get all settings
+// =======================================
+// Retrieves all settings from the database
+// Public/Protected access will be controlled at the route level
+
+export const getSettings = asyncHandler(async (req, res) => {
 
     const settings = await Setting.getAllSettings();
 
@@ -21,11 +29,14 @@ export const getSettings = async (req, res) => {
         
     );
         
-};
+});
         
+// =======================================
+// Get single settings by ID
+// =======================================
+// Retrieves one settings using MongoDB ObjectId    
         
-        
-export const getSetting = async(req,res)=>{
+export const getSetting = asyncHandler(async (req, res) => {
         
     const setting = await Setting.getSettingsById(
         
@@ -53,11 +64,13 @@ export const getSetting = async(req,res)=>{
         
     );
         
-};
+});
         
+// =======================================
+// Create new settings
+// =======================================       
         
-        
-export const createSetting = async(req,res)=>{
+export const createSetting =asyncHandler(async(req,res)=>{
         
     const result = await Setting.createSetting(
         
@@ -75,11 +88,14 @@ export const createSetting = async(req,res)=>{
         
     );
         
-};
+});
         
+// =======================================
+// Update settings
+// =======================================
+// Updates existing settings information by ID       
         
-        
-export const updateSetting = async(req,res)=>{
+export const updateSetting =asyncHandler(async(req,res)=>{
         
     const result = await Setting.updateSetting(
         
@@ -108,11 +124,14 @@ export const updateSetting = async(req,res)=>{
         
     );
         
-};
+});
         
+// =======================================
+// Delete settings
+// =======================================
+// Permanently removes a settings from database       
         
-        
-export const deleteSetting = async(req,res)=>{
+export const deleteSetting =asyncHandler(async(req,res)=>{
         
     const result = await Setting.deleteSetting(
         
@@ -139,4 +158,4 @@ export const deleteSetting = async(req,res)=>{
         
     );
         
-};
+});

@@ -4,6 +4,20 @@ import * as BaseModel from "./base.js";
 
 const COLLECTION = "users";
 
+export const updateUserByGithubId = (githubId, user) =>
+    BaseModel.updateOne(
+        COLLECTION,
+        { github_id: githubId },
+        user
+    );
+
+export const updateUserByEmail = (email, user) =>
+    BaseModel.updateOne(
+        COLLECTION,
+        { email },
+        user
+    );
+
 export const getAllUsers = () =>
     BaseModel.findAll(COLLECTION);
 
@@ -18,3 +32,4 @@ export const updateUser = (id, user) =>
 
 export const deleteUser = (id) =>
     BaseModel.remove(COLLECTION, id);
+
