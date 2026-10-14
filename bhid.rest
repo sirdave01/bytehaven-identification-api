@@ -37,7 +37,7 @@ GET {{baseUrl}}/users/6a63ac9aa9d54fa4766ae6e0
 
 ###
 
-### Create User
+### Create Users
 
 POST {{baseUrl}}/users
 Content-Type: application/json
